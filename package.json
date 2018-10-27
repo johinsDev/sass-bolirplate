@@ -1,0 +1,38 @@
+{
+  "name": "saas-bolirplate",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon --exec babel-node src/index.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "compression": "^1.7.3",
+    "cors": "^2.8.4",
+    "dotenv": "^6.1.0",
+    "email-templates": "^5.0.2",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "helmet": "^3.14.0",
+    "http-status": "^1.2.0",
+    "jsonwebtoken": "^8.3.0",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.3.5",
+    "morgan": "^1.9.1",
+    "nodemailer": "^4.6.8",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "pretty-error": "^2.1.1",
+    "pug": "^2.0.3",
+    "raven": "^2.6.4"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-env": "^2.4.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "cross-env": "^5.2.0",
+    "nodemon": "^1.18.4"
+  }
+}
