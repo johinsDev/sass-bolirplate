@@ -1,7 +1,10 @@
 import mongoose, { Schema } from 'mongoose';
 import * as bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
-import { JWT_SECRET } from '../../constants';
+import config from '../../services/config';
+import filteredBody from '../../utils/filteredBody';
+
+const filleable = [ 'email', 'password', 'firstName', 'lastName', 'userName', 'activationToken' ];
 
 const UserSchema = new Schema(
   {
@@ -61,7 +64,7 @@ UserSchema.methods = {
       {
         _id: this._id,
       },
-      JWT_SECRET,
+      config.get('app.JWT_SECRET'),
     );
   },
   toJSON() {
@@ -72,6 +75,19 @@ UserSchema.methods = {
     };
   },
 };
+
+UserSchema.statics = {
+  byEmail(email) {
+    return this.findOne({
+      email
+    });
+  },
+  createUser(params) {
+    return this.create({
+     ...filteredBody(params, filleable)
+    });
+  }
+}
 
 UserSchema.index({ email: 1, userName: 1 });
 

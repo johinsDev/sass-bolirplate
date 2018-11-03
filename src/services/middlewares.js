@@ -6,13 +6,10 @@ import methodOverride from 'method-override';
 import helmet from 'helmet';
 import cors from 'cors';
 
-import logErrorService from '../services/log';
-
-
-import { isDev } from '../constants';
+import config from '../services/config';
 
 export default app => {
-  app.use(morgan(isDev ? 'dev' : 'common'));
+  app.use(morgan(config.get('app.isDev') ? 'dev' : 'common'));
   app.use(express.json());
   app.use(compression());
   app.use(helmet());
@@ -20,5 +17,4 @@ export default app => {
   app.use(passport.session());
   app.use(cors());
   app.use(methodOverride());
-  app.use(logErrorService);
 };

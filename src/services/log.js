@@ -6,7 +6,7 @@ import Raven from 'raven';
 import PrettyError from 'pretty-error';
 import HTTPStatus from 'http-status';
 
-import { isProd, isDev, RAVEN_ID } from '../constants';
+import config from '../services/config';
 import APIError, { RequiredError } from './error';
 
 // eslint-disable-next-line no-unused-vars
@@ -19,14 +19,14 @@ export default function logErrorService(err, _, res, next) {
     );
   }
 
-  if (isProd) {
-    const raven = new Raven.Client(RAVEN_ID);
+  if (config.get('app.isProd')) {
+    const raven = new Raven.Client(config.get('app.RAVEN_ID'));
     raven.captureException(err);
   }
 
-  if (isDev) {
+  if (config.get('app.siDev')) {
     const pe = new PrettyError();
-    pe.skipNodeFiles();
+    pe.skipNodeFiles();false
     pe.skipPackage('express');
 
     // eslint-disable-next-line no-console
@@ -38,18 +38,10 @@ export default function logErrorService(err, _, res, next) {
   };
 
   if (err.errors) {
-    error.errors = {};
-    const { errors } = err;
-    if (Array.isArray(errors)) {
-      error.errors = RequiredError.makePretty(errors);
-    } else {
-      Object.keys(errors).forEach(key => {
-        error.errors[key] = errors[key].message;
-      });
-    }
+    error.errors = RequiredError.makePretty(err);
   }
 
-  res.status(err.status || HTTPStatus.INTERNAL_SERVER_ERROR).json(error);
+  res.status(err.status || HTTPStatus.UNPROCESSABLE_ENTITY).json(error);
 
   return next();
 }

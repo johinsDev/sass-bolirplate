@@ -26,7 +26,10 @@
     "passport-local": "^1.0.0",
     "pretty-error": "^2.1.1",
     "pug": "^2.0.3",
-    "raven": "^2.6.4"
+    "ramda": "^0.25.0",
+    "raven": "^2.6.4",
+    "require-all": "^3.0.0",
+    "yup": "^0.26.6"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

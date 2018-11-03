@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { DB_URL } from '../constants';
+import { DB_URL } from '../config/database';
 
 mongoose.Promise = global.Promise;
 
@@ -11,7 +11,7 @@ try {
     {
       useNewUrlParser: true,
     },
-  );
+  );  
 } catch (error) {
   mongoose.createConnection(DB_URL, {
     useNewUrlParser: true,

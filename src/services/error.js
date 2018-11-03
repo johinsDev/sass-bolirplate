@@ -50,12 +50,16 @@ export class RequiredError {
    * @param {Array} errors - Array of error Object
    * @returns {Object} - errors - Pretty Object transform
    */
-  static makePretty(errors) {
-    return errors.reduce((obj, error) => {
-      const nObj = obj;
-      nObj[error.field] = error.messages[0].replace(/"/g, '');
-      return nObj;
-    }, {});
+  static makePretty(err) {
+    const errors = [];
+    err.inner.forEach(e => {
+      errors.push({
+        path: e.path,
+        message: e.message
+      });
+    });
+
+    return errors;
   }
 }
 

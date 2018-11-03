@@ -16,6 +16,14 @@ class MessageBuilder {
 
   subject(subject) {
     this.subject = subject;
+
+    return this;
+  }
+
+  body(body) {
+    this.subject = body.subject;
+    this.text = body.text;
+    this.html = body.html;
   }
 }
 

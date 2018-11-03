@@ -3,10 +3,8 @@ import LocalStrategy from 'passport-local';
 import { Strategy as JWTStrategy, ExtractJwt } from 'passport-jwt';
 import HTTPStatus from 'http-status';
 
-
-import APIError from '../../services/error';
 import User from './user.model';
-import { JWT_SECRET } from '../../constants';
+import { JWT_SECRET } from '../../config/app';
 
 /**
  * Local Strategy Auth

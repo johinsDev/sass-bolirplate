@@ -1,11 +1,17 @@
 import express from 'express';
+import path from 'path';
 import "dotenv/config";
+import './services/db';
 
-import './config/db';
 import routes from './routes';
-import middlewaresConfig from './config/middlewares';
+import config from './services/config';
+import middlewaresConfig from './services/middlewares';
+
+global.__basedir = path.resolve(__dirname);
+config.init(global.__basedir);
 
 const app = express();
+
 middlewaresConfig(app);
 
 app.get('/', (req, res) => {
